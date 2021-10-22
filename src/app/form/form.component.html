@@ -4,15 +4,16 @@
         <h1 class="display-6 mb-4">Please, fill out this form:</h1>
         <div class="row" *ngFor="let element of data">
             
-            <div class="mb-3" *ngIf="element.fieldType === 'simple'">
+            <div class="" *ngIf="element.fieldType === 'simple'">
                 <label [for]="element.field.name" class="form-label">{{ element.field.label }}</label>
                 <input [type]="element.field.type" 
                     class="form-control" 
+                    [ngClass]="{'invalid': form.get(element.field.name)?.invalid && qForm.submitted}"
                     [name]="element.field.name"
                     [formControlName]="element.field.name">
             </div>
 
-            <div class="mb-3" *ngIf="element.fieldType === 'group'">
+            <div class="" *ngIf="element.fieldType === 'group'">
                 <p *ngIf="element.title">{{ element.title }}</p>
                 <div class="form-check" *ngFor="let item of element.field">
                     <input class="form-check-input" *ngIf="element.type === 'radio'"
@@ -21,11 +22,11 @@
                         [checked]="item.checked" 
                         [name]="element.name"
                         (change)="onRadioChange(item)"
-                        [formControlName]="'sex'">
+                        [formControlName]="element.name">
 
                     <input class="form-check-input" *ngIf="element.type === 'checkbox'"
                         [type]="item.type" 
-                        [name]="item.name" 
+                        [name]="item.name"
                         [checked]="item.checked"
                         [value]="item.value"
                         (change)="onCheckboxChange($event, element.name, item)">
@@ -42,15 +43,15 @@
                 </div>
             </div>
 
-            <div class="alert-wrapper">
-                <div class="alert alert-danger mb-3" role="alert" 
-                *ngIf="form.controls[element.name].errors?.required && qForm.submitted">
-                {{ errorMsg.required }}
-            </div>
-            <div class="alert alert-danger mb-3" role="alert" 
-                *ngIf="form.controls[element.name].errors?.pattern && qForm.submitted">
-                {{ errorMsg.email }}
-            </div>
+            <div class="alert-wrapper mb-2">
+                <div class="text-danger text small" role="alert" 
+                    *ngIf="form.controls[element.name].errors?.required && qForm.submitted">
+                    {{ errorMsg.required }}
+                </div>
+                <div class="text-danger text small" role="alert" 
+                    *ngIf="form.controls[element.name].errors?.pattern && qForm.submitted">
+                    {{ errorMsg.email }}
+                </div>
             </div>
             
           

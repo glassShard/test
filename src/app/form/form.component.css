@@ -12,4 +12,20 @@
 
 .alert-wrapper {
     padding: 0 14px;
+    height: 16px;
 }
+
+.invalid {
+    border-color: red !important;
+}
+
+@media screen and (max-width: 767.98px) {
+    .form-wrapper {
+        padding: 20px;
+    }
+    .form {
+        padding: 20px;
+    }
+  }
+
+

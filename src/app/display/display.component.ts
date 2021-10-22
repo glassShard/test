@@ -16,7 +16,6 @@ export class DisplayComponent implements OnInit {
 
   ngOnInit(): void {
     this.value = this.dataService.value;
-    console.log(this.value === undefined);
     if (this.value === undefined) {
       this.router.navigate(['']);
     } else {
@@ -26,10 +25,18 @@ export class DisplayComponent implements OnInit {
 
   makeText() {
     const birth = (new Date().getFullYear() - new Date(this.value.birth).getFullYear());
+    const birthDate = new Date(this.value.birth);
+    const now = new Date();
+    const days = (now.getTime() - birthDate.getTime()) / 1000 / 60 / 60 / 24;
+
     let birthString;
-    if (birth > 1) {
-      birthString = `You are ${birth} years old.`;
-    } else if (birth < 1 && birth >= 0) {
+    if (days > 365) {
+      if (days < 2 * 365) {
+        birthString = `You are one year old`;
+      } else {
+        birthString = `You are ${birth} years old.`;
+      }     
+    } else if (days < 365 && days >= 0) {
       birthString = `You have just born, you are not even one year old yet.`
     } else {
       birthString = `You have not been born yet.`
@@ -44,9 +51,9 @@ export class DisplayComponent implements OnInit {
         hobbies = [...hobbies, ...otherArray];
       } 
     }
-    console.log(hobbies);
+
     if (!hobbies.length) {
-      hobbiesText = `You have some hobby, but it is not cooking, cycling, grill, or camping, and you do not want to tell it.`
+      hobbiesText = `you have some hobby, but it is not cooking, cycling, grill, or camping, and you do not want to tell it`;
     } else if (hobbies.length === 1) {
       hobbiesText = `your hobby is ${hobbies[0]}`;
     } else {
@@ -62,7 +69,7 @@ export class DisplayComponent implements OnInit {
       }, '');
     }
 
-    this.textToDisplay = `Hello, your name is ${this.value.name}, and your email address is "${this.value.email}". ${birthString} You are ${this.value.sex}, and ${hobbiesText}.`;
+    this.textToDisplay = `Hello, your name is ${this.value.name}, and your email address is "${this.value.email}". ${birthString} You are a ${this.value.sex}, and ${hobbiesText}.`;
   }
 
   onClickEdit() {
