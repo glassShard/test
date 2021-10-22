@@ -1,0 +1,127 @@
+{
+    "fields": [
+        {
+            "fieldType": "simple",
+            "name": "name",
+            "field": {
+                "name": "name",
+                "label": "Name",
+                "type": "text",
+                "validators": {
+                    "required": true
+                }
+            }            
+        },
+        {
+            "fieldType": "simple",
+            "name": "email",
+            "field": {
+                "name": "email",
+                "label": "Email",
+                "type": "email",
+                "validators": {
+                    "required": true,
+                    "regex": "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$",
+                    "email": true
+                }               
+            }
+        },
+        {
+            "fieldType": "simple",
+            "name": "birth",
+            "field": {
+                "name": "birth",
+                "label": "Date of Birth",
+                "type": "date",
+                "validators": {
+                    "required": true
+                }               
+            }
+        },
+
+        {
+            "fieldType": "group",
+            "title": "Sex",
+            "type": "radio",
+            "name": "sex",
+            "validators": {
+                "required": true
+            },            
+            "field": [
+                {
+                    "name": "sex",
+                    "label": "Female",
+                    "type": "radio",
+                    "checked": true,
+                    "value": "female",
+                    "validators": {} 
+                },
+                {
+                    "name": "sex",
+                    "label": "Male",
+                    "type": "radio",
+                    "value": "male",
+                    "checked": false,
+                    "validators": {} 
+                }
+            ]
+        },
+        {
+            "fieldType": "group",
+            "title": "Hobbies",
+            "type": "checkbox",
+            "name": "hobbies",
+            "validators": {
+                "required": true
+            },            
+            "field": [
+                {
+                    "name": "hobby1",
+                    "label": "Cycling",
+                    "type": "checkbox",
+                    "value": "cycling",
+                    "checked": false,
+                    "validators": {} 
+                },
+                {
+                    "name": "hobby2",
+                    "label": "Camping",
+                    "type": "checkbox",
+                    "value": "camping",
+                    "checked": false,
+                    "validators": {} 
+                },
+                {
+                    "name": "hobby3",
+                    "label": "Grill",
+                    "type": "checkbox",
+                    "value": "grill",
+                    "checked": false,
+                    "validators": {} 
+                },
+                {
+                    "name": "hobby4",
+                    "label": "Cooking",
+                    "type": "checkbox",
+                    "value": "cooking",
+                    "checked": false,
+                    "validators": {} 
+                },
+                {
+                    "name": "hobby5",
+                    "label": "Other",
+                    "type": "checkbox",
+                    "value": "other",
+                    "checked": false,
+                    "validators": {}, 
+                    "onValue": {
+                        "name": "other",
+                        "type": "text",
+                        "label": "Please specify (enter a comma separeted list)",
+                        "validators": {}                         
+                    }
+                }
+            ]               
+        }
+    ]
+}

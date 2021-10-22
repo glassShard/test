@@ -1,0 +1,15 @@
+.display-wrapper {
+    padding: 50px;
+}
+
+.display {
+    padding: 50px;
+    width: 500px;
+    height: 100%;
+    background-color: #f6f6fc;
+    border: 1px solid grey;
+}
+
+.display .form-floating textarea {
+    height: 200px;
+}

@@ -1,0 +1,63 @@
+<section class="d-flex justify-content-center align-items-center form-wrapper">
+    
+    <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" #qForm="ngForm">
+        <h1 class="display-6 mb-4">Please, fill out this form:</h1>
+        <div class="row" *ngFor="let element of data">
+            
+            <div class="mb-3" *ngIf="element.fieldType === 'simple'">
+                <label [for]="element.field.name" class="form-label">{{ element.field.label }}</label>
+                <input [type]="element.field.type" 
+                    class="form-control" 
+                    [name]="element.field.name"
+                    [formControlName]="element.field.name">
+            </div>
+
+            <div class="mb-3" *ngIf="element.fieldType === 'group'">
+                <p *ngIf="element.title">{{ element.title }}</p>
+                <div class="form-check" *ngFor="let item of element.field">
+                    <input class="form-check-input" *ngIf="element.type === 'radio'"
+                        [value]="item.value" 
+                        [type]="item.type"
+                        [checked]="item.checked" 
+                        [name]="element.name"
+                        (change)="onRadioChange(item)"
+                        [formControlName]="'sex'">
+
+                    <input class="form-check-input" *ngIf="element.type === 'checkbox'"
+                        [type]="item.type" 
+                        [name]="item.name" 
+                        [checked]="item.checked"
+                        [value]="item.value"
+                        (change)="onCheckboxChange($event, element.name, item)">
+                    <label class="form-check-label" [for]="item.name">{{ item.label }}</label>
+                    
+                    <div class="mb-3" *ngIf="item.onValue && form.value[element.name].includes(item.value)">
+                        <label [for]="item.onValue.name" class="form-label">{{ item.onValue.label }}</label>
+                        <input class="form-control"
+                        [type]="item.onValue.type" 
+                        [name]="item.onValue.name"
+                        [formControlName]="item.onValue.name">
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="alert-wrapper">
+                <div class="alert alert-danger mb-3" role="alert" 
+                *ngIf="form.controls[element.name].errors?.required && qForm.submitted">
+                {{ errorMsg.required }}
+            </div>
+            <div class="alert alert-danger mb-3" role="alert" 
+                *ngIf="form.controls[element.name].errors?.pattern && qForm.submitted">
+                {{ errorMsg.email }}
+            </div>
+            </div>
+            
+          
+            
+        </div>
+        
+        <button type="submit" class="btn btn-lg btn-primary" [disabled]="qForm.submitted && form.invalid">Submit</button>
+
+    </form>
+</section>
